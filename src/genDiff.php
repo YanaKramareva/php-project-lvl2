@@ -10,13 +10,18 @@ function makeArrayFromFile($file)
     return json_decode($arrayFromFile, true);
 }
 
-
-function genDiff($file1, $file2): string
+function zipFiles($file1, $file2)
 {
     $zipFilesArray = zip_all(makeArrayFromFile($file1), makeArrayFromFile($file2));
     uksort($zipFilesArray, function ($left, $right) {
         return strcmp($left, $right);
     });
+    return $zipFilesArray;
+}
+
+function genDiff($file1, $file2): string
+{
+    $zipFilesArray = zipFiles($file1, $file2);
     $result = [];
     foreach ($zipFilesArray as $item => $value) {
         if (is_bool($value[0])) {
@@ -41,4 +46,3 @@ function genDiff($file1, $file2): string
     }
     return implode(PHP_EOL, $result);
 }
-
