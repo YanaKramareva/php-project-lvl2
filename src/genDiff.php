@@ -29,10 +29,9 @@ function genDiff($file1, $file2): string
     $zipFilesArray = zipFilesToArray($file1, $file2);
     $result = [];
     foreach ($zipFilesArray as $item => $value) {
-
-        $value[0] = (is_bool($value[0]) ? boolToString($value[0]) : $value[0]);
-        $value[1] = (is_bool($value[1]) ? boolToString($value[1]) : $value[1]);
-
+        foreach ($value as $k => $v) {
+            $value[$k] = (is_bool($v) ? boolToString($v) : $v);
+        }
         switch ($value) {
             case is_null($value[0]):
                 $result[] =  " + $item: $value[1]";
@@ -43,11 +42,11 @@ function genDiff($file1, $file2): string
             case $value[0] === $value[1]:
                 $result[] =  "   $item: $value[1]";
                 break;
-                case ($value[0]!== $value[1] && $value[0] !== null && $value[1] !== null):
-                    $result[] = " - $item: $value[0]";
-                    $result[] = " + $item: $value[1]";
-                    break;
-                    }
+            case ($value[0] !== $value[1] && $value[0] !== null && $value[1] !== null):
+                $result[] = " - $item: $value[0]";
+                $result[] = " + $item: $value[1]";
+                break;
+        }
     }
     return implode(PHP_EOL, $result);
 }
