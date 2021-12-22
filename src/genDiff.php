@@ -48,7 +48,7 @@ function genDiff($file1, $file2): string
             case $value[0] === $value[1]:
                 $result[] =  "   $item: $value[1]";
                 break;
-            case ($value[0] !== $value[1] && $value[0] !== null && $value[1] !== null):
+            case ($value[0] !== $value[1]):
                 $result[] = " - $item: $value[0]";
                 $result[] = " + $item: $value[1]";
                 break;
