@@ -19,9 +19,15 @@ function zipFilesToArray($file1, $file2): array
     return $zipFilesArray;
 }
 
-function boolToString(bool $item): string
+function formatBoolToString($item): ? string
 {
-    return $item === true ? 'true' : 'false';
+    if (is_bool($item)) {
+        $value = ($item === true ? 'true' : 'false');
+    }
+    else {
+        $value = $item;
+    }
+    return $value;
 }
 
 function genDiff($file1, $file2): string
@@ -29,8 +35,8 @@ function genDiff($file1, $file2): string
     $zipFilesArray = zipFilesToArray($file1, $file2);
     $result = [];
     foreach ($zipFilesArray as $item => $value) {
-        foreach ($value as $k => $v) {
-            $value[$k] = (is_bool($v) ? boolToString($v) : $v);
+        foreach ($value as $key => $val) {
+            $value[$key] = formatBoolToString($val);
         }
         switch ($value) {
             case is_null($value[0]):
