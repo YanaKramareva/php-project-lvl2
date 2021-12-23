@@ -10,24 +10,22 @@ function makeArrayFromFile($file)
     return json_decode($arrayFromFile, true);
 }
 
+
 function zipFilesToArray($file1, $file2): array
 {
     $zipFilesArray = zip_all(makeArrayFromFile($file1), makeArrayFromFile($file2));
     uksort($zipFilesArray, function ($left, $right) {
         return strcmp($left, $right);
     });
-    return $zipFilesArray;
+     return $zipFilesArray;
 }
 
-function formatBoolToString($item): ? string
+function formatBoolToString($item): ?string
 {
-    if (is_bool($item)) {
-        $value = ($item === true ? 'true' : 'false');
+    if (!is_bool($item)) {
+        return $item;
     }
-    else {
-        $value = $item;
-    }
-    return $value;
+        return $item ? 'true' : 'false';
 }
 
 function genDiff($file1, $file2): string

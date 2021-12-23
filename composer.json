@@ -12,7 +12,8 @@
             "src/genDiff.php"
         ],
         "psr-4": {
-            "Hexlet\\Code\\": "src/"
+            "Hexlet\\Code\\": "src/",
+            "Hexlet\\Code\\Tests\\": "tests"
         }
     },
     "authors": [

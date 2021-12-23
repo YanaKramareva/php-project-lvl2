@@ -32,7 +32,7 @@ DOC;
 require('../vendor/docopt/docopt/src/docopt.php');
 $params = array(
     'help'=>true,
-    'version'=>'1.0',
+    'version'=>'1.0'
 );
 $args = Docopt::handle($doc, $params);
 
