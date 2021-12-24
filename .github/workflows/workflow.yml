@@ -33,3 +33,5 @@ jobs:
       - name: Test
         #Test project
         run: make test
+      - name: Code Climate Coverage Action
+        uses: paambaati/codeclimate-action@v3.0.0
