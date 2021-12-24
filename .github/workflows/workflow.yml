@@ -30,7 +30,7 @@ jobs:
       - name: Run linter
         # Run Linter
         run: make lint
-      -name: Test
+      - name: Test
         #Test project
         run: composer exec --verbose phpunit tests -- --coverage-text
 
