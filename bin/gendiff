@@ -30,7 +30,7 @@ Options:
 
 DOC;
 
-require('../vendor/docopt/docopt/src/docopt.php');
+require('./vendor/docopt/docopt/src/docopt.php');
 $params = array(
     'help'=>true,
     'version'=>'1.0'
