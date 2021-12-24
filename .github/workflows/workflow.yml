@@ -33,5 +33,7 @@ jobs:
       - name: Test
         #Test project
         run: make test
-      - name: Code Climate Coverage Action
+      - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
+        env:
+       CC_TEST_REPORTER_ID: a3b63231e76ff293e5c100ad108c36efd6f1c26d7e05145f785a912a374fcb54
