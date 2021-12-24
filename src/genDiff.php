@@ -11,13 +11,13 @@ function makeArrayFromFile($file)
 }
 
 
-function zipFilesToArray($file1, $file2): array
+function zipArrays(array $arrayFromFile1, $arrayFromFile2): array
 {
-    $zipFilesArray = zip_all(makeArrayFromFile($file1), makeArrayFromFile($file2));
-    uksort($zipFilesArray, function ($left, $right) {
+    $zipArrays = zip_all($arrayFromFile1, $arrayFromFile2);
+    uksort($zipArrays, function ($left, $right) {
         return strcmp($left, $right);
     });
-     return $zipFilesArray;
+     return $zipArrays;
 }
 
 function formatBoolToString($item): ?string
@@ -28,23 +28,22 @@ function formatBoolToString($item): ?string
         return $item ? 'true' : 'false';
 }
 
-function genDiff($file1, $file2): string
+function compareTree(array $tree): array
 {
-    $zipFilesArray = zipFilesToArray($file1, $file2);
     $result = [];
-    foreach ($zipFilesArray as $item => $value) {
+    foreach ($tree as $item => $value) {
         foreach ($value as $key => $val) {
             $value[$key] = formatBoolToString($val);
         }
         switch ($value) {
             case is_null($value[0]):
-                $result[] =  " + $item: $value[1]";
+                $result[] = " + $item: $value[1]";
                 break;
             case is_null($value[1]):
                 $result[] = " - $item: $value[0]";
                 break;
             case $value[0] === $value[1]:
-                $result[] =  "   $item: $value[1]";
+                $result[] = "   $item: $value[1]";
                 break;
             case ($value[0] !== $value[1]):
                 $result[] = " - $item: $value[0]";
@@ -52,5 +51,12 @@ function genDiff($file1, $file2): string
                 break;
         }
     }
+                return $result;
+}
+
+function genDiff(array $arrayFromFile1, array $arrayFromFile2): string
+{
+    $zipFilesArray = zipArrays($arrayFromFile1, $arrayFromFile2);
+    $result = compareTree($zipFilesArray);
     return implode(PHP_EOL, $result);
 }
