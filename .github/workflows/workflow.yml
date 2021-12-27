@@ -1,4 +1,4 @@
-# Name of workflow
+  # Name of workflow
 name: PHP CI
 
     # Trigger the workflow on push or pull request
@@ -14,7 +14,6 @@ jobs:
 
     steps:
         # Check-out repository under GitHub workspace
-        # https://github.com/actions/checkout
       - uses: actions/checkout@v2
         # Step's name
       - name: Setup PHP
