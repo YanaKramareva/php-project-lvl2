@@ -31,7 +31,7 @@ jobs:
         # Run Linter
         run: make lint
       - name: Run test
-        # Run Linter
+        # Run Tests
         run: make test
         # Publish code coverage on Code Climate
      # - name: Test & publish code coverage
