@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 use function Differ\compareTree;
 use function Differ\genDiff;
-use function Differ\makeArrayFromFile;
 use function Differ\zipArrays;
+use function Parsers\chooseFormatToParse;
 
 class GenDiffTest extends TestCase
 {
@@ -22,8 +22,8 @@ class GenDiffTest extends TestCase
 
     public function testZipArrays()
     {
-        $array1 = makeArrayFromFile($this->json1);
-        $array2 = makeArrayFromFile($this->json2);
+        $array1 = chooseFormatToParse($this->json1);
+        $array2 = chooseFormatToParse($this->json2);
         $zippedArrays = zipArrays($array1, $array2);
 
         $expectation =
@@ -38,8 +38,8 @@ class GenDiffTest extends TestCase
 
     public function testCompareTree()
     {
-        $array1 = makeArrayFromFile($this->json1);
-        $array2 = makeArrayFromFile($this->json2);
+        $array1 = chooseFormatToParse($this->json1);
+        $array2 = chooseFormatToParse($this->json2);
         $zippedArrays = zipArrays($array1, $array2);
         $comparedTree = compareTree($zippedArrays);
 
@@ -56,7 +56,7 @@ class GenDiffTest extends TestCase
 
     public function testMakeArrayFromFile()
     {
-        $array1 = makeArrayFromFile($this->json1);
+        $array1 = chooseFormatToParse($this->json1);
 
         $expectation = ['host' => 'hexlet.io', 'timeout' => '50', 'proxy' => '123.234.53.22', 'follow' => ''];
 
@@ -65,8 +65,8 @@ class GenDiffTest extends TestCase
 
     public function testGenDiff()
     {
-        $array1 = makeArrayFromFile($this->json1);
-        $array2 = makeArrayFromFile($this->json2);
+        $array1 = chooseFormatToParse($this->json1);
+        $array2 = chooseFormatToParse($this->json2);
         $genDiff = explode(PHP_EOL, genDiff($array1, $array2));
 
         $expectation = array(' - follow: false',

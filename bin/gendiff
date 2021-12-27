@@ -2,7 +2,7 @@
 
 <?php
 
-use function Differ\makeArrayFromFile;
+use function Parsers\chooseFormatToParse;
 use function Differ\genDiff;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
@@ -30,14 +30,15 @@ Options:
 
 DOC;
 
-require('./vendor/docopt/docopt/src/docopt.php');
+//require('./vendor/docopt/docopt/src/docopt.php');
 $params = array(
     'help'=>true,
     'version'=>'1.0'
 );
 $args = Docopt::handle($doc, $params);
 
-$arrayFromFile1 = makeArrayFromFile($args['<firstFile>']);
-$arrayFromFile2 = makeArrayFromFile($args['<secondFile>']);
+$path1 =__DIR__.'/'.$args['<firstFile>'];
+$path2 =__DIR__.'/'.$args['<secondFile>'];
 
-print_r(genDiff($arrayFromFile1, $arrayFromFile2));
+
+print_r(genDiff(chooseFormatToParse($path1), chooseFormatToParse($path2)));

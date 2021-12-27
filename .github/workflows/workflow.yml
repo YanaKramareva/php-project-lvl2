@@ -1,13 +1,10 @@
 # Name of workflow
 name: PHP CI
 
-env:
-  CC_TEST_REPORTER_ID: a3b63231e76ff293e5c100ad108c36efd6f1c26d7e05145f785a912a374fcb54
-
-# Trigger the workflow on push or pull request
+    # Trigger the workflow on push or pull request
 on:
-  - push
-  - pull_request
+   - push
+   - pull_request
 
 jobs:
   build:
@@ -16,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Check-out repository under GitHub workspace
-      # https://github.com/actions/checkout
+        # Check-out repository under GitHub workspace
+        # https://github.com/actions/checkout
       - uses: actions/checkout@v2
         # Step's name
       - name: Setup PHP
@@ -36,3 +33,14 @@ jobs:
       - name: Test
         #Test project
         run: make test
+        # Add environment variables
+      - name: Test & publish code coverage
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+      -  uses: paambaati/codeclimate-action@v2.7.4
+        # Add Code Climate secret key
+        env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+        coverageCommand: make test-coverage
+        debug: true
