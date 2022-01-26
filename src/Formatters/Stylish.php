@@ -61,7 +61,7 @@ function formatValue($value, $level = 1)
         return "{\n{$result}\n{$spaces}}";
     }
 
-    return is_bool($value) || is_null($value) ? toString($value) : $value;
+    return (is_bool($value) || is_null($value)) ? toString($value) : (string) $value;
 }
 
 function toString($value)
