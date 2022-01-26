@@ -1,55 +1,31 @@
 <?php
 
-namespace Differ;
+namespace Differ\GenDiff;
 
-use function Functional\zip_all;
+use function Differ\Ast\makeAst;
+use function Differ\Format\selectFormater;
+use function Differ\Parsers\parse;
 
-function zipArrays(array $arrayFromFile1, $arrayFromFile2): array
+function fileGetContent($filePath)
 {
-    $zipArrays = zip_all($arrayFromFile1, $arrayFromFile2);
-    uksort($zipArrays, function ($left, $right) {
-        return strcmp($left, $right);
-    });
-     return $zipArrays;
-}
-
-function formatBoolToString($item): ?string
-{
-    if (!is_bool($item)) {
-        return $item;
+    $content = file_get_contents($filePath);
+    if (!$content) {
+        throw new \Exception("Can't read file: " . $filePath);
     }
-        return $item ? 'true' : 'false';
+    return $content;
 }
 
-function compareTree(array $tree): array
+function genDiff($beforeFilePath, $afterFilePath, $format = 'stylish')
 {
-    $result = [];
-    foreach ($tree as $item => $value) {
-        foreach ($value as $key => $val) {
-            $value[$key] = formatBoolToString($val);
-        }
-        switch ($value) {
-            case is_null($value[0]):
-                $result[] = " + $item: $value[1]";
-                break;
-            case is_null($value[1]):
-                $result[] = " - $item: $value[0]";
-                break;
-            case $value[0] === $value[1]:
-                $result[] = "   $item: $value[1]";
-                break;
-            case ($value[0] !== $value[1]):
-                $result[] = " - $item: $value[0]";
-                $result[] = " + $item: $value[1]";
-                break;
-        }
-    }
-                return $result;
-}
-
-function genDiff(array $arrayFromFile1, array $arrayFromFile2): string
-{
-    $zipFilesArray = zipArrays($arrayFromFile1, $arrayFromFile2);
-    $result = compareTree($zipFilesArray);
-    return implode(PHP_EOL, $result);
+    $beforeContent = fileGetContent($beforeFilePath);
+    $afterContent = fileGetContent($afterFilePath);
+    $beforeType = pathinfo($beforeFilePath, PATHINFO_EXTENSION);
+    $afterType = pathinfo($afterFilePath, PATHINFO_EXTENSION);
+    $beforeParsedContent = parse($beforeContent, $beforeType);
+    ksort($beforeParsedContent);
+    $afterParsedContent = parse($afterContent, $afterType);
+    ksort($afterParsedContent);
+    $formater = selectFormater($format);
+    $ast = array_values(makeAst($beforeParsedContent, $afterParsedContent));
+    return $formater($ast);
 }

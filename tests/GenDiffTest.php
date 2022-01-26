@@ -4,78 +4,45 @@ namespace Hexlet\Code\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use function Differ\compareTree;
-use function Differ\genDiff;
-use function Differ\zipArrays;
-use function Parsers\chooseFormatToParse;
+use function Differ\GenDiff\genDiff;
 
 class GenDiffTest extends TestCase
 {
-    private string $json1;
-    private string $json2;
 
     public function setUp(): void
     {
-        $this->json1 = __DIR__ . "/./fixtures/file1.json";
-        $this->json2 = __DIR__ . "/./fixtures/file2.json";
-    }
+        $this->before = __DIR__ . "/fixtures/before.json";
+        $this->after = __DIR__ . "/fixtures/after.json";
+        $this->expected = __DIR__ . "/fixtures/PlainExpected";
 
-    public function testZipArrays()
+        $this->beforeNotPlain = __DIR__ . "/fixtures/beforeNotPlain.json";
+        $this->afterNotPlain = __DIR__ . "/fixtures/afterNotPlain.json";
+        $this->expectedNotPlain = __DIR__ . "/fixtures/NotPlainExpected";
+
+        $this->beforeNotPlainYaml = __DIR__ . "/fixtures/beforeNotPlain.yaml";
+        $this->afterNotPlainYaml = __DIR__ . "/fixtures/afterNotPlain.yaml";
+    }
+      
+  public function testGenDiff1()
     {
-        $array1 = chooseFormatToParse($this->json1);
-        $array2 = chooseFormatToParse($this->json2);
-        $zippedArrays = zipArrays($array1, $array2);
-
-        $expectation =
-            ['follow' => ['0' => '', '1' => ''],
-            'host' => ['0' => 'hexlet.io', '1' => 'hexlet.io'],
-            'proxy' => ['0' => '123.234.53.22', '1' => ''],
-            'timeout' => ['0' => 50, '1' => 20],
-            'verbose' => ['0' => '', '1' => 1]];
-
-        $this->assertEquals($expectation, $zippedArrays);
+        
+        $this->assertStringEqualsFile(
+            $this->expected,
+            genDiff($this->before, $this->after));
     }
-
-    public function testCompareTree()
+    public function testGenDiff2()
     {
-        $array1 = chooseFormatToParse($this->json1);
-        $array2 = chooseFormatToParse($this->json2);
-        $zippedArrays = zipArrays($array1, $array2);
-        $comparedTree = compareTree($zippedArrays);
 
-        $expectation = [
-            '0' =>  ' - follow: false',
-            '1' =>  '   host: hexlet.io',
-            '2' =>  ' - proxy: 123.234.53.22',
-            '3' =>  ' - timeout: 50',
-            '4' =>  ' + timeout: 20',
-            '5' =>  ' + verbose: true'];
-
-        $this->assertEquals($expectation, $comparedTree);
+        $this->assertStringEqualsFile(
+            $this->expectedNotPlain,
+            genDiff($this->beforeNotPlain, $this->afterNotPlain));
     }
 
-    public function testMakeArrayFromFile()
+    public function testGenDiff3()
     {
-        $array1 = chooseFormatToParse($this->json1);
-
-        $expectation = ['host' => 'hexlet.io', 'timeout' => '50', 'proxy' => '123.234.53.22', 'follow' => ''];
-
-        $this->assertEquals($expectation, $array1);
+        $this->assertStringEqualsFile(
+            $this->expectedNotPlain,
+            genDiff($this->beforeNotPlainYaml, $this->afterNotPlainYaml));
     }
 
-    public function testGenDiff()
-    {
-        $array1 = chooseFormatToParse($this->json1);
-        $array2 = chooseFormatToParse($this->json2);
-        $genDiff = explode(PHP_EOL, genDiff($array1, $array2));
-
-        $expectation = array(' - follow: false',
-            '   host: hexlet.io',
-            ' - proxy: 123.234.53.22',
-            ' - timeout: 50',
-            ' + timeout: 20',
-            ' + verbose: true');
-
-        $this->assertEquals($expectation, $genDiff);
-    }
 }

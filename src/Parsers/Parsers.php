@@ -1,26 +1,19 @@
 <?php
 
-namespace Parsers;
+namespace Differ\Parsers;
 
+use Exception;
 use Symfony\Component\Yaml\Yaml;
 
-function makeArrayFromJson($file): array
+function parse($fileContent, $fileType)
 {
-    $fileContent = file_get_contents($file);
-    return json_decode($fileContent, true);
-}
-
-function makeArrayFromYaml($file): array
-{
-    return Yaml::parseFile($file);
-}
-
-function chooseFormatToParse(string $path)
-{
-    switch ($path) {
-        case strchr($path, '.json') === '.json':
-            return makeArrayFromJson($path);
-        case strchr($path, '.yml') === '.yml':
-            return makeArrayFromYaml($path);
+    switch ($fileType) {
+        case "yaml":
+        case "yml":
+            return Yaml::parse($fileContent);
+        case "json":
+            return json_decode($fileContent, true);
+        default:
+            throw new Exception('Unknown type of file ' . $fileType);
     }
 }
