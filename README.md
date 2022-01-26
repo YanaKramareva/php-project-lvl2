@@ -1,6 +1,7 @@
 #**Project "Difference calculator"**
 
 This script calculates differences between files of the format json or yaml.
+Has 3 different formats for result: stylish (by default), plain and json.
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/YanaKramareva/php-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/YanaKramareva/php-project-lvl2/actions)
@@ -17,6 +18,10 @@ This script calculates differences between files of the format json or yaml.
 #*Help output:*
 gendiff -h
 
-#*Start script:*
-php gendiff filepath1.json filepath2.json
-php gendiff filepath1.yaml filepath2.yaml
+##*Start script:*
+ 
+##1. php gendiff filepath1.json filepath2.json
+##2. php gendiff filepath1.yaml filepath2.yaml
+##3. php gendiff --format plain filepath1.yaml filepath2.yaml
+##4. php gendiff --format json filepath1.json filepath2.json
+
