@@ -17,10 +17,13 @@ class GenDiffTest extends TestCase
 
         $this->beforeNotPlain = __DIR__ . "/fixtures/beforeNotPlain.json";
         $this->afterNotPlain = __DIR__ . "/fixtures/afterNotPlain.json";
-        $this->expectedNotPlain = __DIR__ . "/fixtures/NotPlainExpected";
+        $this->expectedStylish = __DIR__ . "/fixtures/ExpectedStylish";
 
         $this->beforeNotPlainYaml = __DIR__ . "/fixtures/beforeNotPlain.yaml";
         $this->afterNotPlainYaml = __DIR__ . "/fixtures/afterNotPlain.yaml";
+        
+        $this->expectedJson = __DIR__ . "/fixtures/expected.json";
+        $this->expectedPlain = __DIR__ . "/fixtures/ExpectedPlain";
     }
       
   public function testGenDiff1()
@@ -34,15 +37,23 @@ class GenDiffTest extends TestCase
     {
 
         $this->assertStringEqualsFile(
-            $this->expectedNotPlain,
+            $this->expectedStylish,
             genDiff($this->beforeNotPlain, $this->afterNotPlain));
     }
 
     public function testGenDiff3()
     {
         $this->assertStringEqualsFile(
-            $this->expectedNotPlain,
+            $this->expectedStylish,
             genDiff($this->beforeNotPlainYaml, $this->afterNotPlainYaml));
+    }
+
+
+    public function testGenDiff4()
+    {
+        $this->assertStringEqualsFile(
+            $this->expectedPlain,
+            genDiff($this->beforeNotPlain, $this->afterNotPlain, 'plain'));
     }
 
 }
