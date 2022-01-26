@@ -9,19 +9,20 @@ Has 3 different formats for result: stylish (by default), plain and json.
 <a href="https://codeclimate.com/github/YanaKramareva/php-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/82facc7880f6f8be7c76/test_coverage" /></a>
 [![PHP CI](https://github.com/YanaKramareva/php-project-lvl2/actions/workflows/workflow.yml/badge.svg)](https://github.com/YanaKramareva/php-project-lvl2/actions/workflows/workflow.yml)
 
+#*Help output:*
+gendiff -h
+
+##*Start script:*
+
+1. php gendiff filepath1.json filepath2.json
+2. php gendiff filepath1.yaml filepath2.yaml
+3. php gendiff --format plain filepath1.yaml filepath2.yaml
+4. php gendiff --format json filepath1.json filepath2.json
+
 ###Asciinema: 
 
 [![asciicast](https://asciinema.org/a/Pf5PQcwKeDjqj7hb5e4AO5YKW.svg)](https://asciinema.org/a/Pf5PQcwKeDjqj7hb5e4AO5YKW)
 [![asciicast](https://asciinema.org/a/7kaWuyrkCirsH21Iw888CcBsy.svg)](https://asciinema.org/a/7kaWuyrkCirsH21Iw888CcBsy)
 [![asciicast](https://asciinema.org/a/mWbK7t0RRFuRE2E2bo9ws8XcV.svg)](https://asciinema.org/a/mWbK7t0RRFuRE2E2bo9ws8XcV)
 
-#*Help output:*
-gendiff -h
-
-##*Start script:*
- 
-##1. php gendiff filepath1.json filepath2.json
-##2. php gendiff filepath1.yaml filepath2.yaml
-##3. php gendiff --format plain filepath1.yaml filepath2.yaml
-##4. php gendiff --format json filepath1.json filepath2.json
 
