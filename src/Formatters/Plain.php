@@ -42,7 +42,7 @@ function getBlock($item, $level)
 function formatValue($value)
 {
     if (is_array($value)) {
-        return "complex value";
+        return '[complex value]';
     }
     return is_bool($value) ? toString($value) : $value;
 }
