@@ -58,5 +58,6 @@ function formatValue($value, $level = 1)
 
 function toString($value)
 {
-    return trim(var_export($value, true), "'");
+    //return trim(var_export($value, true), "'");
+    return $value? 'true': 'false';
 }
