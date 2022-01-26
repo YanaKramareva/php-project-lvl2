@@ -1,8 +1,8 @@
 <?php
 
-namespace Differ\Formaters\Plain;
+namespace Differ\Formatters\Plain;
 
-use function Differ\Formaters\Stylish\toString;
+use function Differ\Formatters\Stylish\toString;
 
 function formatPlain($ast)
 {

@@ -11,6 +11,7 @@ This script calculates differences between files of the format json or yaml.
 ###Asciinema: 
 
 [![asciicast](https://asciinema.org/a/Pf5PQcwKeDjqj7hb5e4AO5YKW.svg)](https://asciinema.org/a/Pf5PQcwKeDjqj7hb5e4AO5YKW)
+[![asciicast](https://asciinema.org/a/7kaWuyrkCirsH21Iw888CcBsy.svg)](https://asciinema.org/a/7kaWuyrkCirsH21Iw888CcBsy)
 
 #*Help output:*
 gendiff -h

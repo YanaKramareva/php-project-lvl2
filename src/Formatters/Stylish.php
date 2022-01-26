@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Formaters\Stylish;
+namespace Differ\Formatters\Stylish;
 
 const SPACES_INIT_INDENT = 4;
 const INDENTS_PER_TYPES = ['unchanged' => '    ', 'added' => '  + ', 'deleted' => '  - ', 'parent' => '    '];

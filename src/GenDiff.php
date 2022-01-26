@@ -3,7 +3,7 @@
 namespace Differ\GenDiff;
 
 use function Differ\Ast\makeAst;
-use function Differ\Format\selectFormater;
+use function Differ\Format\selectFormatter;
 use function Differ\Parsers\parse;
 
 function fileGetContent($filePath)
@@ -25,7 +25,7 @@ function genDiff($beforeFilePath, $afterFilePath, $format = 'stylish')
     ksort($beforeParsedContent);
     $afterParsedContent = parse($afterContent, $afterType);
     ksort($afterParsedContent);
-    $formater = selectFormater($format);
+    $formater = selectFormatter($format);
     $ast = array_values(makeAst($beforeParsedContent, $afterParsedContent));
     return $formater($ast);
 }

@@ -12,10 +12,10 @@
             "src/GenDiff.php",
             "src/Parsers/Parsers.php",
             "src/MakeAst.php",
-            "src/Formaters/Json.php",
-            "src/Formaters/Plain.php",
-            "src/Formaters/Stylish.php",
-            "src/Formaters/SelectFormater.php"
+            "src/Formatters/Json.php",
+            "src/Formatters/Plain.php",
+            "src/Formatters/Stylish.php",
+            "src/Formatters/Formatters.php"
         ],
         "psr-4": {
             "Hexlet\\Code\\": "src/",
