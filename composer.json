@@ -9,7 +9,7 @@
 },
     "autoload": {
         "files": [
-            "src/GenDiff.php",
+            "src/Differ.php",
             "src/Parsers/Parsers.php",
             "src/MakeAst.php",
             "src/Formatters/Json.php",

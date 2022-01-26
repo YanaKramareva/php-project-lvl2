@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Differ\GenDiff;
+namespace Differ\Differ;
 
 use function Differ\Ast\makeAst;
 use function Differ\Format\selectFormatter;
