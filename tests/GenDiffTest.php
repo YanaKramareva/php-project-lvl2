@@ -1,59 +1,39 @@
 <?php
 
-namespace Hexlet\Code\Tests;
+namespace Differ\Tests\GenDiffTest;
 
+use function \Differ\Differ\gendiff;
 use PHPUnit\Framework\TestCase;
-
-use function Differ\Differ\genDiff;
 
 class GenDiffTest extends TestCase
 {
-
-    public function setUp(): void
+    public function testGenDiffJson()
     {
-        $this->before = __DIR__ . "/fixtures/before.json";
-        $this->after = __DIR__ . "/fixtures/after.json";
-        $this->expected = __DIR__ . "/fixtures/PlainExpected";
+        $expected1 = file_get_contents(__DIR__ . "/fixtures/expectedFlat");
+        $actual1 = gendiff(__DIR__ . "/fixtures/beforeFlat.json", __DIR__ . "/fixtures/afterFlat.json", "stylish");
+        $this->assertEquals($expected1, $actual1);
 
-        $this->beforeNotPlain = __DIR__ . "/fixtures/beforeNotPlain.json";
-        $this->afterNotPlain = __DIR__ . "/fixtures/afterNotPlain.json";
-        $this->expectedStylish = __DIR__ . "/fixtures/ExpectedStylish";
+        /*$expected2 = file_get_contents(__DIR__ . "/fixtures/expectedStylish");
+        $actual2 = gendiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "stylish");
+        $this->assertEquals($expected2, $actual2);*/
 
-        $this->beforeNotPlainYaml = __DIR__ . "/fixtures/beforeNotPlain.yaml";
-        $this->afterNotPlainYaml = __DIR__ . "/fixtures/afterNotPlain.yaml";
-        
-        $this->expectedJson = __DIR__ . "/fixtures/expected.json";
-        $this->expectedPlain = __DIR__ . "/fixtures/ExpectedPlain";
-    }
-      
-  public function testGenDiff1()
-    {
-        
-        $this->assertStringEqualsFile(
-            $this->expected,
-            genDiff($this->before, $this->after));
-    }
-    /*public function testGenDiff2()
-    {
+        $expected3 = file_get_contents(__DIR__ . "/fixtures/expectedPlain");
+        $actual3 = gendiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "plain");
+        $this->assertEquals($expected3, $actual3);
 
-        $this->assertStringEqualsFile(
-            $this->expectedStylish,
-            genDiff($this->beforeNotPlain, $this->afterNotPlain));
+        $expected4 = file_get_contents(__DIR__ . "/fixtures/expected.json");
+        $actual4 = gendiff(__DIR__ . "/fixtures/beforeFlat.json", __DIR__ . "/fixtures/afterFlat.json", "json");
+        $this->assertEquals($expected4, $actual4);
     }
 
-    public function testGenDiff3()
+    public function testGenDiffYaml()
     {
-        $this->assertStringEqualsFile(
-            $this->expectedStylish,
-            genDiff($this->beforeNotPlainYaml, $this->afterNotPlainYaml));
-    }
+        $expected = file_get_contents(__DIR__ . "/fixtures/expectedFlat");
+        $actual = gendiff(__DIR__ . "/fixtures/beforeFlat.yml", __DIR__ . "/fixtures/afterFlat.yml", 'stylish');
+        $this->assertEquals($expected, $actual);
 
-*/
-    public function testGenDiff4()
-    {
-        $this->assertStringEqualsFile(
-            $this->expectedPlain,
-            genDiff($this->beforeNotPlain, $this->afterNotPlain, 'plain'));
+        $expected2 = file_get_contents(__DIR__ . "/fixtures/expectedPlain");
+        $actual2 = gendiff(__DIR__ . "/fixtures/beforeNested.yaml", __DIR__ . "/fixtures/afterNested.yaml", "plain");
+        $this->assertEquals($expected2, $actual2);
     }
-
 }
