@@ -31,15 +31,10 @@ function getBlock($item, $level)
     if ($item['type'] === 'changed') {
         $beforeValue = formatValue($item['beforeValue'], $level + 1);
         $afterValue = formatValue($item['afterValue'], $level + 1);
-        if ($beforeValue === '') {
-            return "{$spaces}  - {$key}:\n" . "{$spaces}  + {$key}: {$afterValue}";
-        } else {
-            return "{$spaces}  - {$key}: {$beforeValue}\n" . "{$spaces}  + {$key}: {$afterValue}";
-        }
+        return "{$spaces}  - {$key}: {$beforeValue}\n" . "{$spaces}  + {$key}: {$afterValue}";
     }
 
     $value = formatValue($item['value'], $level + 1);
-    var_dump($value);
     $indent = INDENTS[$item['type']];
     if ($value === '') {
         return "{$spaces}{$indent}{$key}:";
