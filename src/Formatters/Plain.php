@@ -41,10 +41,14 @@ function getBlock($item, $level)
 
 function formatValue($value)
 {
-    if (is_array($value)) {
-        return '[complex value]';
-    } elseif ($value === '') {
-        return "''";
+    if (is_bool($value) || is_null($value)) {
+        return toString($value);
     }
-    return is_bool($value) || is_null($value) ? toString($value) : "'" . $value . "'";
+    if (is_array($value) || is_object($value)) {
+        return '[complex value]';
+    }
+    if (is_string($value)) {
+        return "'{$value}'";
+    }
+        return "{$value}";
 }
