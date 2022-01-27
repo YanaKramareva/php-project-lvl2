@@ -33,8 +33,6 @@ function getBlock($item, $level)
         $afterValue = formatValue($item['afterValue'], $level + 1);
         if ($beforeValue === '') {
             return "{$spaces}  - {$key}:{$beforeValue}\n" . "{$spaces}  + {$key}: {$afterValue}";
-        } elseif ($beforeValue === ' ') {
-            return "{$spaces}  - {$key}:{$beforeValue}\n" . "{$spaces}  + {$key}: {$afterValue}";
         } else {
             return "{$spaces}  - {$key}: {$beforeValue}\n" . "{$spaces}  + {$key}: {$afterValue}";
         }
