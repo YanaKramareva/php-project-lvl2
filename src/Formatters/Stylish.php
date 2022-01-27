@@ -32,7 +32,7 @@ function getBlock($item, $level)
         $beforeValue = formatValue($item['beforeValue'], $level + 1);
         $afterValue = formatValue($item['afterValue'], $level + 1);
         return "{$spaces}  - {$key}: {$beforeValue}\n" . "{$spaces}  + {$key}: {$afterValue}";
-        }
+    }
 
     $value = formatValue($item['value'], $level + 1);
     $indent = INDENTS[$item['type']];
