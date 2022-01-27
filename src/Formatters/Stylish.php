@@ -69,5 +69,6 @@ function toString($value)
     if (is_null($value)) {
         return 'null';
     }
+
     return trim(var_export($value, true), "'");
 }

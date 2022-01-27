@@ -22,14 +22,14 @@ function getBlock($item, $level)
     switch ($item['type']) {
         case 'added':
             $value = formatValue($item['value']);
-            return "Property '{$newLevel}' was added with value: '{$value}'";
+            return "Property '{$newLevel}' was added with value: {$value}";
         case 'deleted':
             return "Property '{$newLevel}' was removed";
         case 'changed':
             $beforeValue = formatValue($item['beforeValue']);
             $afterValue = formatValue($item['afterValue']);
-            return "Property '{$newLevel}' was changed." .
-                " From '{$beforeValue}' to '{$afterValue}'";
+            return "Property '{$newLevel}' was updated." .
+                " From {$beforeValue} to {$afterValue}";
         case 'parent':
             return format($item['children'], $newLevel) ;
         case 'unchanged':
@@ -43,6 +43,8 @@ function formatValue($value)
 {
     if (is_array($value)) {
         return '[complex value]';
+    } elseif ($value === '') {
+        return "''";
     }
-    return is_bool($value) ? toString($value) : $value;
+    return is_bool($value) || is_null($value) ? toString($value) : "'" . $value . "'";
 }
