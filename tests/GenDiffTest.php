@@ -33,7 +33,7 @@ class GenDiffTest extends TestCase
             $this->expected,
             genDiff($this->before, $this->after));
     }
-    public function testGenDiff2()
+    /*public function testGenDiff2()
     {
 
         $this->assertStringEqualsFile(
@@ -48,7 +48,7 @@ class GenDiffTest extends TestCase
             genDiff($this->beforeNotPlainYaml, $this->afterNotPlainYaml));
     }
 
-
+*/
     public function testGenDiff4()
     {
         $this->assertStringEqualsFile(
