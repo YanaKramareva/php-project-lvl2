@@ -15,7 +15,7 @@ function format($ast, $level)
     return implode("\n", array_filter($plain, fn($item) => $item !== null));
 }
 
-function getBlock($item, $level)
+function getBlock($item, $level): ?string
 {
     $key = $item['key'];
     $newLevel = strlen($level) > 0 ? "{$level}.{$key}" : $key;
