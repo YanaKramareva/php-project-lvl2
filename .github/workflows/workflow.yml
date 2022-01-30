@@ -33,9 +33,13 @@ jobs:
       - name: Run test
         # Run Tests
         run: make test
-      - name: Test & publish code coverage
-        # Publish code coverage on Code Climate
-        uses: paambaati/codeclimate-action@v3.0.0
+      - name: Run test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.6.0
+
         env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-    	run: make test
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          XDEBUG_MODE: coverage
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+          debug: true
