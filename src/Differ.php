@@ -15,7 +15,7 @@ function fileGetContent($filePath)
     return $content;
 }
 
-function genDiff($beforeFilePath, $afterFilePath, $format = 'stylish')
+function start($beforeFilePath, $afterFilePath, $format = 'stylish')
 {
     $beforeContent = fileGetContent($beforeFilePath);
     $afterContent = fileGetContent($afterFilePath);
