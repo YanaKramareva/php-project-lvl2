@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Format;
+namespace Differ\Formatters;
 
 function selectFormatter($format)
 {

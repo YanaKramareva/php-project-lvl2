@@ -3,7 +3,7 @@
 namespace Differ\Differ;
 
 use function Differ\Ast\makeAst;
-use function Differ\Format\selectFormatter;
+use function Differ\Formatters\selectFormatter;
 use function Differ\Parsers\parse;
 
 function fileGetContent($filePath)
