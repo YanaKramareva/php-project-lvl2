@@ -4,9 +4,9 @@ namespace Differ\Cli;
 
 use Docopt;
 
-use function Differ\Differ\start;
+use function Differ\Differ\genDiff;
 
-function gendiff()
+function start()
 {
     $doc = <<<'DOCOPT'
     Generate diff
@@ -22,7 +22,7 @@ function gendiff()
 
     $args = Docopt::handle($doc, ['version' => '1.0']);
 
-    $diff = start(
+    $diff = genDiff(
         $args['<firstFile>'],
         $args['<secondFile>'],
         $args['--format']
