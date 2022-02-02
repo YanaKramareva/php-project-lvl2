@@ -12,4 +12,5 @@ if (file_exists($autoloadPath1)) {
 
 use function Differ\Cli\start;
 
+
 start();
