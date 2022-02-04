@@ -9,13 +9,13 @@ function formatPlain(array $ast): string
     return format($ast, "");
 }
 
-function format(array $ast, int $level): ?string
+function format(array $ast, string $level): string
 {
     $plain = array_map(fn ($item) => getBlock($item, $level), $ast);
     return implode("\n", array_filter($plain, fn($item) => $item !== null));
 }
 
-function getBlock(array $item, int $level): ?string
+function getBlock(array $item, string $level): ?string
 {
     $key = $item['key'];
     $newLevel = strlen($level) > 0 ? "{$level}.{$key}" : $key;

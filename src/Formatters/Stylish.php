@@ -39,7 +39,7 @@ function getBlock(array $item, int $level): string
     return "{$spaces}{$indent}{$key}: {$value}";
 }
 
-function formatValue($value,  int $level = 1): string
+function formatValue($value, int $level = 1): string
 {
     if (is_array($value)) {
         $spaces = str_repeat(" ", $level * SPACES);
