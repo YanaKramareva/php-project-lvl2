@@ -48,8 +48,8 @@ function formatValue($value, int $level = 1): string
             $formatValue = formatValue($value[$key], $level + 1);
             return "{$spaces}    {$key}: {$formatValue}";
         }, $keys);
-        $result = implode("\n", $result);
-        return "{\n{$result}\n{$spaces}}";
+        $finishResult = implode("\n", $result);
+        return "{\n{$finishResult}\n{$spaces}}";
     }
 
     return (is_bool($value) || is_null($value)) ? toString($value) : (string) $value;
