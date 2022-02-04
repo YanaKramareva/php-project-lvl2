@@ -22,9 +22,9 @@ function genDiff(string $beforeFilePath, string $afterFilePath, string $format =
     $beforeType = pathinfo($beforeFilePath, PATHINFO_EXTENSION);
     $afterType = pathinfo($afterFilePath, PATHINFO_EXTENSION);
     $beforeParsedContent = parse($beforeContent, $beforeType);
-    ksort($beforeParsedContent);
+    //ksort($beforeParsedContent);
     $afterParsedContent = parse($afterContent, $afterType);
-    ksort($afterParsedContent);
+   // ksort($afterParsedContent);
     $formater = selectFormatter($format);
     $ast = array_values(makeAst($beforeParsedContent, $afterParsedContent));
     return $formater($ast);
