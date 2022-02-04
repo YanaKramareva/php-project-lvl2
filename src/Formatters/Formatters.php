@@ -2,15 +2,15 @@
 
 namespace Differ\Formatters;
 
-function selectFormatter(string $format): string
+function selectFormatter(array $ast, string $format): string
 {
     switch ($format) {
         case "stylish":
-            return 'Differ\Formatters\Stylish\stylish';
+            return Stylish\stylish($ast);
         case "plain":
-            return 'Differ\Formatters\Plain\formatPlain';
+            return Plain\formatPlain($ast);
         case "json":
-            return 'Differ\Formatters\Json\formatJson';
+            return Json\formatJson($ast);
         default:
             throw new \Exception('Unknown format: ' . $format);
     }

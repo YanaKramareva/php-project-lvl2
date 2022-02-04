@@ -5,7 +5,7 @@ namespace Differ\Formatters\Stylish;
 const SPACES = 4;
 const INDENTS = ['unchanged' => '    ', 'added' => '  + ', 'deleted' => '  - ', 'parent' => '    '];
 
-function stylish(array $ast): string
+function stylish(?array $ast): string
 {
     return "{\n" . format($ast, 0) . "\n}";
 }
@@ -60,6 +60,5 @@ function toString($value): string
     if (is_null($value)) {
         return 'null';
     }
-
     return trim(var_export($value, true), "'");
 }
