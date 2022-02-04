@@ -7,8 +7,13 @@ function makeAst(array $beforeParsedContent, array $afterParsedContent): array
     $beforeKeys = array_keys($beforeParsedContent);
     $afterKeys = array_keys($afterParsedContent);
     $keys = array_unique(array_merge($beforeKeys, $afterKeys));
-    sort($keys);
-    return array_map(fn($key) => makeItemOfAst($key, $beforeParsedContent, $afterParsedContent), $keys);
+    $sortedKeys = \Functional\sort($keys, function ($a, $b) {
+        if ($a == $b) {
+            return 0;
+        }
+        return ($a < $b) ? -1 : 1;
+    }, false);
+    return array_map(fn($key) => makeItemOfAst($key, $beforeParsedContent, $afterParsedContent), $sortedKeys);
 }
 
 function makeItemOfAst($key, array $beforeParsedContent, array $afterParsedContent): array
