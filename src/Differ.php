@@ -8,11 +8,11 @@ use function Differ\Parsers\parse;
 
 function fileGetContent(string $filePath): string
 {
-    $content = file_get_contents($filePath);
-    if (!$content) {
+    if (!is_readable($filePath)) {
         throw new \Exception("Can't read file: " . $filePath);
     }
-    return $content;
+
+    return file_get_contents($filePath);
 }
 
 function genDiff(string $beforeFilePath, string $afterFilePath, string $format = 'stylish'): string

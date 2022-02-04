@@ -27,5 +27,5 @@ function start(): void
         $args['<secondFile>'],
         $args['--format']
     );
-    print_r($diff);
+    echo ($diff);
 }
