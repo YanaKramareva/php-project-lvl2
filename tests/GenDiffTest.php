@@ -13,10 +13,6 @@ class GenDiffTest extends TestCase
         $expected3 = file_get_contents(__DIR__ . "/fixtures/expectedPlain");
         $actual3 = genDiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "plain");
         $this->assertEquals($expected3, $actual3);
-
-        $expected4 = file_get_contents(__DIR__ . "/fixtures/expected.json");
-        $actual4 = genDiff(__DIR__ . "/fixtures/beforeFlat.json", __DIR__ . "/fixtures/afterFlat.json", "json");
-        $this->assertEquals($expected4, $actual4);
     }
 
     public function testGenDiffYaml()
