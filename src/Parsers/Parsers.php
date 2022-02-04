@@ -5,7 +5,7 @@ namespace Differ\Parsers;
 use Exception;
 use Symfony\Component\Yaml\Yaml;
 
-function parse($fileContent, $fileType)
+function parse(string $fileContent, string $fileType): ?array
 {
     switch ($fileType) {
         case "yaml":

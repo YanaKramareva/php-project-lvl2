@@ -5,12 +5,12 @@ namespace Differ\Formatters\Stylish;
 const SPACES = 4;
 const INDENTS = ['unchanged' => '    ', 'added' => '  + ', 'deleted' => '  - ', 'parent' => '    '];
 
-function stylish($ast)
+function stylish(array $ast): string
 {
     return "{\n" . format($ast, 0) . "\n}";
 }
 
-function format($ast, $level)
+function format(array $ast, int $level): string
 {
     $notPlain = array_map(function ($item) use ($level) {
         return getBlock($item, $level);
@@ -18,7 +18,7 @@ function format($ast, $level)
     return implode("\n", $notPlain);
 }
 
-function getBlock($item, $level)
+function getBlock(array $item, int $level): string
 {
     $spaces = str_repeat(" ", $level * SPACES);
     $key = $item['key'];
@@ -39,7 +39,7 @@ function getBlock($item, $level)
     return "{$spaces}{$indent}{$key}: {$value}";
 }
 
-function formatValue($value, $level = 1)
+function formatValue($value,  int $level = 1): string
 {
     if (is_array($value)) {
         $spaces = str_repeat(" ", $level * SPACES);
@@ -55,7 +55,7 @@ function formatValue($value, $level = 1)
     return (is_bool($value) || is_null($value)) ? toString($value) : (string) $value;
 }
 
-function toString($value)
+function toString($value): string
 {
     if (is_null($value)) {
         return 'null';

@@ -6,7 +6,7 @@ use function Differ\Ast\makeAst;
 use function Differ\Formatters\selectFormatter;
 use function Differ\Parsers\parse;
 
-function fileGetContent($filePath)
+function fileGetContent(string $filePath): string
 {
     $content = file_get_contents($filePath);
     if (!$content) {
@@ -15,7 +15,7 @@ function fileGetContent($filePath)
     return $content;
 }
 
-function genDiff($beforeFilePath, $afterFilePath, $format = 'stylish')
+function genDiff(string $beforeFilePath, string $afterFilePath, string $format = 'stylish'): string
 {
     $beforeContent = fileGetContent($beforeFilePath);
     $afterContent = fileGetContent($afterFilePath);

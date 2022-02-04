@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters;
 
-function selectFormatter($format)
+function selectFormatter(string $format): string
 {
     switch ($format) {
         case "stylish":

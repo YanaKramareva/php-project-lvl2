@@ -4,18 +4,18 @@ namespace Differ\Formatters\Plain;
 
 use function Differ\Formatters\Stylish\toString;
 
-function formatPlain($ast)
+function formatPlain(array $ast): string
 {
     return format($ast, "");
 }
 
-function format($ast, $level)
+function format(array $ast, int $level): ?string
 {
     $plain = array_map(fn ($item) => getBlock($item, $level), $ast);
     return implode("\n", array_filter($plain, fn($item) => $item !== null));
 }
 
-function getBlock($item, $level): ?string
+function getBlock(array $item, int $level): ?string
 {
     $key = $item['key'];
     $newLevel = strlen($level) > 0 ? "{$level}.{$key}" : $key;
@@ -39,7 +39,7 @@ function getBlock($item, $level): ?string
     }
 }
 
-function formatValue($value)
+function formatValue($value): string
 {
     if (is_bool($value) || is_null($value)) {
         return toString($value);
