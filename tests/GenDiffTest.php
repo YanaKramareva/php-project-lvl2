@@ -26,13 +26,15 @@ class GenDiffTest extends TestCase
 
    /* public function testGenDiffStylishJson()
     {
-        $actualJson = genDiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "stylish");
+        $actualJson = genDiff(__DIR__ . "/fixtures/beforeNested.json",
+   __DIR__ . "/fixtures/afterNested.json", "stylish");
         $this->assertEquals($this->expectedStylish, $actualJson);
     }
 
     public function testGenDiffStylishYaml()
     {
-        $actualJson = genDiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "stylish");
+        $actualJson = genDiff(__DIR__ . "/fixtures/beforeNested.json",
+   __DIR__ . "/fixtures/afterNested.json", "stylish");
         $this->assertEquals($this->expectedStylish, $actualJson);
     }
 */
