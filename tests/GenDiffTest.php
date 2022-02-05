@@ -8,17 +8,37 @@ use function Differ\Differ\genDiff;
 
 class GenDiffTest extends TestCase
 {
-    public function testGenDiffJson()
+    public string $expectedPlainJson;
+    public string $expectedStylish;
+
+    public function setUp(): void
     {
-        $expected3 = file_get_contents(__DIR__ . "/fixtures/expectedPlain");
-        $actual3 = genDiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "plain");
-        $this->assertEquals($expected3, $actual3);
+        parent::setUp();
+        $this->expectedPlainJson =  file_get_contents(__DIR__ . "/fixtures/expectedPlain");
+        $this->expectedStylish = file_get_contents(__DIR__ . "/fixtures/expectedStylish");
     }
 
-    public function testGenDiffYaml()
+    public function testGenDiffPlainJson()
     {
-        $expected2 = file_get_contents(__DIR__ . "/fixtures/expectedPlain");
-        $actual2 = genDiff(__DIR__ . "/fixtures/beforeNested.yaml", __DIR__ . "/fixtures/afterNested.yaml", "plain");
-        $this->assertEquals($expected2, $actual2);
+        $actualJson = genDiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "plain");
+        $this->assertEquals($this->expectedPlainJson, $actualJson);
+    }
+
+   /* public function testGenDiffStylishJson()
+    {
+        $actualJson = genDiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "stylish");
+        $this->assertEquals($this->expectedStylish, $actualJson);
+    }
+
+    public function testGenDiffStylishYaml()
+    {
+        $actualJson = genDiff(__DIR__ . "/fixtures/beforeNested.json", __DIR__ . "/fixtures/afterNested.json", "stylish");
+        $this->assertEquals($this->expectedStylish, $actualJson);
+    }
+*/
+    public function testGenDiffPlainYaml()
+    {
+        $actualYaml = genDiff(__DIR__ . "/fixtures/beforeNested.yaml", __DIR__ . "/fixtures/afterNested.yaml", "plain");
+        $this->assertEquals($this->expectedPlainJson, $actualYaml);
     }
 }
