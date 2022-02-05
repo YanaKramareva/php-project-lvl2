@@ -5,12 +5,12 @@ namespace Differ\Formatters\Stylish;
 const SPACES = 4;
 const INDENTS = ['unchanged' => '    ', 'added' => '  + ', 'deleted' => '  - ', 'parent' => '    '];
 
-function stylish(?array $ast): string
+function stylish(mixed $ast): string
 {
     return "{\n" . format($ast, 0) . "\n}";
 }
 
-function format(array | null $ast, int $level): string
+function format(mixed $ast, int $level): string
 {
     $notPlain = array_map(function ($item) use ($level) {
         return getBlock($item, $level);
