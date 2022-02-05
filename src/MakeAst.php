@@ -2,7 +2,7 @@
 
 namespace Differ\Ast;
 
-function makeAst(?array $beforeParsedContent, ?array $afterParsedContent): array
+function makeAst(array|null $beforeParsedContent, array|null $afterParsedContent): array
 {
     $beforeKeys = array_keys($beforeParsedContent);
     $afterKeys = array_keys($afterParsedContent);
@@ -16,7 +16,7 @@ function makeAst(?array $beforeParsedContent, ?array $afterParsedContent): array
     return array_map(fn($key) => makeItemOfAst($key, $beforeParsedContent, $afterParsedContent), $sortedKeys);
 }
 
-function makeItemOfAst(string $key, array $beforeParsedContent, array $afterParsedContent): array
+function makeItemOfAst(string $key, array|null $beforeParsedContent, array|null $afterParsedContent): array
 {
     if (!array_key_exists($key, $beforeParsedContent)) {
         $afterValue = $afterParsedContent[$key];

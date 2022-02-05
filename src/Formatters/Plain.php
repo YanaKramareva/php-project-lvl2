@@ -39,7 +39,7 @@ function getBlock(array $item, string $level): ?string
     }
 }
 
-function formatValue($value): string
+function formatValue(mixed $value): string
 {
     if (is_bool($value) || is_null($value)) {
         return toString($value);

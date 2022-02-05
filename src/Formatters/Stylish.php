@@ -10,7 +10,7 @@ function stylish(?array $ast): string
     return "{\n" . format($ast, 0) . "\n}";
 }
 
-function format(array $ast, int $level): string
+function format(array | null $ast, int $level): string
 {
     $notPlain = array_map(function ($item) use ($level) {
         return getBlock($item, $level);
@@ -39,7 +39,7 @@ function getBlock(array $item, int $level): string
     return "{$spaces}{$indent}{$key}: {$value}";
 }
 
-function formatValue($value, int $level = 1): string
+function formatValue(mixed $value, int $level = 1): string
 {
     if (is_array($value)) {
         $spaces = str_repeat(" ", $level * SPACES);
@@ -55,7 +55,7 @@ function formatValue($value, int $level = 1): string
     return (is_bool($value) || is_null($value)) ? toString($value) : (string) $value;
 }
 
-function toString($value): string
+function toString(mixed $value): string
 {
     if (is_null($value)) {
         return 'null';
