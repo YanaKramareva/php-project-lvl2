@@ -29,7 +29,8 @@ function getBlock(array $item, int $depth): string
         $afterValue = formatValue($item['afterValue'], $depth + 1);
         $indentDeleted = INDENTS['deleted'];
         $indentAdded = INDENTS['added'];
-        return "{$spaces}{$indentDeleted}{$key}: {$beforeValue}\n" . "{$spaces}{$indentAdded}{$key}: {$afterValue}";
+        return "{$spaces}{$indentDeleted}{$key}: {$beforeValue}\n" .
+               "{$spaces}{$indentAdded}{$key}: {$afterValue}";
     }
 
     $value = formatValue($item['value'], $depth + 1);
