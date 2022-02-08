@@ -15,17 +15,16 @@ function makeAst(mixed $beforeParsedContent, mixed $afterParsedContent): array
 
 function makeItemOfAst(string $key, mixed $beforeParsedContent, mixed $afterParsedContent): array
 {
+    $beforeValue = $beforeParsedContent[$key] ?? null;
+    $afterValue = $afterParsedContent[$key] ?? null;
+
     if (!array_key_exists($key, $beforeParsedContent)) {
-        $afterValue = $afterParsedContent[$key];
         return ['type' => "added", 'key' => $key, 'value' => $afterValue];
     }
     if (!array_key_exists($key, $afterParsedContent)) {
-        $beforeValue = $beforeParsedContent[$key];
         return ['type' => "deleted", 'key' => $key, 'value' => $beforeValue];
     }
 
-    $beforeValue = $beforeParsedContent[$key];
-    $afterValue = $afterParsedContent[$key];
     if (is_array($beforeValue) && is_array($afterValue)) {
         return [
             'type' => "parent",
