@@ -2,8 +2,6 @@
 
 namespace Differ\Formatters\Plain;
 
-use function Differ\Formatters\Stylish\toString;
-
 function formatPlain(array $ast): string
 {
     return format($ast, "");
@@ -41,8 +39,11 @@ function getBlock(array $item, string $level): ?string
 
 function formatValue(mixed $value): string
 {
-    if (is_bool($value) || is_null($value)) {
-        return toString($value);
+    if (is_null($value)) {
+        return 'null';
+    }
+    if (is_bool($value)) {
+        return trim(var_export($value, true), "'");
     }
     if (is_array($value) || is_object($value)) {
         return '[complex value]';

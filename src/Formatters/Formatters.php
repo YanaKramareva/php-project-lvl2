@@ -2,11 +2,11 @@
 
 namespace Differ\Formatters;
 
-function selectFormatter(array $ast, string $format): string
+function formatAstToString(array $ast, string $format): string
 {
     switch ($format) {
         case "stylish":
-            return Stylish\stylish($ast);
+            return Stylish\formatStylish($ast);
         case "plain":
             return Plain\formatPlain($ast);
         case "json":

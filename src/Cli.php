@@ -6,7 +6,7 @@ use Docopt;
 
 use function Differ\Differ\genDiff;
 
-function start(): void
+function start(): string
 {
     $doc = <<<'DOCOPT'
     Generate diff
@@ -27,5 +27,5 @@ function start(): void
         $args['<secondFile>'],
         $args['--format']
     );
-    echo ($diff);
+    return $diff;
 }

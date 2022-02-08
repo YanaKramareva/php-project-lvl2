@@ -3,7 +3,7 @@
 namespace Differ\Differ;
 
 use function Differ\Ast\makeAst;
-use function Differ\Formatters\selectFormatter;
+use function Differ\Formatters\formatAstToString;
 use function Differ\Parsers\parse;
 
 function fileGetContent(string $filePath): string
@@ -23,6 +23,5 @@ function genDiff(string $beforeFilePath, string $afterFilePath, string $format =
     $beforeParsedContent = parse($beforeContent, $beforeType);
     $afterParsedContent = parse($afterContent, $afterType);
     $ast = array_values(makeAst($beforeParsedContent, $afterParsedContent));
-    $formater = selectFormatter($ast, $format);
-    return $formater;
+    return formatAstToString($ast, $format);
 }

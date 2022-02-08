@@ -2,17 +2,14 @@
 
 namespace Differ\Ast;
 
+use function Functional\sort;
+
 function makeAst(mixed $beforeParsedContent, mixed $afterParsedContent): array
 {
     $beforeKeys = array_keys($beforeParsedContent);
     $afterKeys = array_keys($afterParsedContent);
     $keys = array_unique(array_merge($beforeKeys, $afterKeys));
-    $sortedKeys = \Functional\sort($keys, function ($a, $b) {
-        if ($a === $b) {
-            return 0;
-        }
-        return ($a < $b) ? -1 : 1;
-    }, false);
+    $sortedKeys = sort($keys, fn ($a, $b) => strcmp($a, $b), false);
     return array_map(fn($key) => makeItemOfAst($key, $beforeParsedContent, $afterParsedContent), $sortedKeys);
 }
 

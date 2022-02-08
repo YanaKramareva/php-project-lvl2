@@ -5,60 +5,53 @@ namespace Differ\Formatters\Stylish;
 const SPACES = 4;
 const INDENTS = ['unchanged' => '    ', 'added' => '  + ', 'deleted' => '  - ', 'parent' => '    '];
 
-function stylish(mixed $ast): string
+function formatStylish(mixed $ast, int $depth = 0): string
 {
-    return "{\n" . format($ast, 0) . "\n}";
-}
-
-function format(mixed $ast, int $level): string
-{
-    $notPlain = array_map(function ($item) use ($level) {
-        return getBlock($item, $level);
+    $stylish = array_map(function ($item) use ($depth) {
+        return getBlock($item, $depth);
     }, $ast);
-    return implode("\n", $notPlain);
+    return $depth === 0 ?  "{\n" . implode("\n", $stylish) . "\n}" :
+        implode("\n", $stylish);
 }
 
-function getBlock(array $item, int $level): string
+function getBlock(array $item, int $depth): string
 {
-    $spaces = str_repeat(" ", $level * SPACES);
+    $spaces = str_repeat(" ", $depth * SPACES);
     $key = $item['key'];
-
     if ($item['type'] === 'parent') {
-        $children = format($item['children'], $level + 1);
-        return "{$spaces}    {$item['key']}: {\n{$children}\n    {$spaces}}";
+        $indent = INDENTS[$item['type']];
+        $children = formatStylish($item['children'], $depth + 1);
+        return "{$spaces}{$indent}{$item['key']}: {\n{$children}\n{$indent}{$spaces}}";
     }
 
     if ($item['type'] === 'changed') {
-        $beforeValue = formatValue($item['beforeValue'], $level + 1);
-        $afterValue = formatValue($item['afterValue'], $level + 1);
+        $beforeValue = formatValue($item['beforeValue'], $depth + 1);
+        $afterValue = formatValue($item['afterValue'], $depth + 1);
         return "{$spaces}  - {$key}: {$beforeValue}\n" . "{$spaces}  + {$key}: {$afterValue}";
     }
 
-    $value = formatValue($item['value'], $level + 1);
+    $value = formatValue($item['value'], $depth + 1);
     $indent = INDENTS[$item['type']];
     return "{$spaces}{$indent}{$key}: {$value}";
 }
 
-function formatValue(mixed $value, int $level = 1): string
+function formatValue(mixed $value, int $depth = 1): string
 {
     if (is_array($value)) {
-        $spaces = str_repeat(" ", $level * SPACES);
+        $spaces = str_repeat(" ", $depth * SPACES);
         $keys = array_keys($value);
-        $result = array_map(function ($key) use ($level, $value, $spaces) {
-            $formatValue = formatValue($value[$key], $level + 1);
+        $result = array_map(function ($key) use ($depth, $value, $spaces) {
+            $formatValue = formatValue($value[$key], $depth + 1);
             return "{$spaces}    {$key}: {$formatValue}";
         }, $keys);
         $finishResult = implode("\n", $result);
         return "{\n{$finishResult}\n{$spaces}}";
     }
-
-    return (is_bool($value) || is_null($value)) ? toString($value) : (string) $value;
-}
-
-function toString(mixed $value): string
-{
     if (is_null($value)) {
         return 'null';
     }
-    return trim(var_export($value, true), "'");
+    if (is_bool($value)) {
+        return trim(var_export($value, true), "'");
+    }
+    return $value;
 }
