@@ -18,24 +18,24 @@ function getBlock(array $item, int $depth): string
 {
     $spaces = str_repeat(" ", $depth * SPACES);
     $key = $item['key'];
-    if ($item['type'] === 'parent') {
-        $indent = INDENTS[$item['type']];
-        $children = formatStylish($item['children'], $depth + 1);
-        return "{$spaces}{$indent}{$key}: {\n{$children}\n{$indent}{$spaces}}";
-    }
 
-    if ($item['type'] === 'changed') {
-        $beforeValue = formatValue($item['beforeValue'], $depth + 1);
-        $afterValue = formatValue($item['afterValue'], $depth + 1);
-        $indentDeleted = INDENTS['deleted'];
-        $indentAdded = INDENTS['added'];
-        return "{$spaces}{$indentDeleted}{$key}: {$beforeValue}\n" .
+    switch ($item['type']) {
+        case $item['type'] === 'parent':
+            $indent = INDENTS[$item['type']];
+            $children = formatStylish($item['children'], $depth + 1);
+            return "{$spaces}{$indent}{$key}: {\n{$children}\n{$indent}{$spaces}}";
+        case $item['type'] === 'changed':
+            $beforeValue = formatValue($item['beforeValue'], $depth + 1);
+            $afterValue = formatValue($item['afterValue'], $depth + 1);
+            $indentDeleted = INDENTS['deleted'];
+            $indentAdded = INDENTS['added'];
+            return "{$spaces}{$indentDeleted}{$key}: {$beforeValue}\n" .
                "{$spaces}{$indentAdded}{$key}: {$afterValue}";
+        default:
+            $value = formatValue($item['value'], $depth + 1);
+            $indent = INDENTS[$item['type']];
+            return "{$spaces}{$indent}{$key}: {$value}";
     }
-
-    $value = formatValue($item['value'], $depth + 1);
-    $indent = INDENTS[$item['type']];
-    return "{$spaces}{$indent}{$key}: {$value}";
 }
 
 function formatValue(mixed $value, int $depth = 1): string
