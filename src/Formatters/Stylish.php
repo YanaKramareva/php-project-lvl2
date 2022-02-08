@@ -21,7 +21,7 @@ function getBlock(array $item, int $depth): string
     if ($item['type'] === 'parent') {
         $indent = INDENTS[$item['type']];
         $children = formatStylish($item['children'], $depth + 1);
-        return "{$spaces}{$indent}{$item['key']}: {\n{$children}\n{$indent}{$spaces}}";
+        return "{$spaces}{$indent}{$key}: {\n{$children}\n{$indent}{$spaces}}";
     }
 
     if ($item['type'] === 'changed') {
