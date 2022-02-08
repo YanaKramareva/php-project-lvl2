@@ -10,8 +10,8 @@ function formatStylish(mixed $ast, int $depth = 0): string
     $stylish = array_map(function ($item) use ($depth) {
         return getBlock($item, $depth);
     }, $ast);
-    return $depth === 0 ?  "{\n" . implode("\n", $stylish) . "\n}" :
-        implode("\n", $stylish);
+    $stylishToString = implode("\n", $stylish);
+    return $depth === 0 ?  "{\n{$stylishToString}\n}" : $stylishToString;
 }
 
 function getBlock(array $item, int $depth): string
