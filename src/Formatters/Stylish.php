@@ -31,7 +31,9 @@ function getBlock(array $item, int $depth): string
             $indentAdded = INDENTS['added'];
             return "{$spaces}{$indentDeleted}{$key}: {$beforeValue}\n" .
                "{$spaces}{$indentAdded}{$key}: {$afterValue}";
-        case $item['type'] === 'unchanged' || $item['type'] === 'added' || $item['type'] === 'deleted':
+        case $item['type'] === 'unchanged' ||
+            $item['type'] === 'added' ||
+            $item['type'] === 'deleted':
             $value = formatValue($item['value'], $depth + 1);
             $indent = INDENTS[$item['type']];
             return "{$spaces}{$indent}{$key}: {$value}";

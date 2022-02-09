@@ -24,7 +24,6 @@ function makeItemOfAst(string $key, mixed $beforeParsedContent, mixed $afterPars
     if (!array_key_exists($key, $afterParsedContent)) {
         return ['type' => "deleted", 'key' => $key, 'value' => $beforeValue];
     }
-
     if (is_array($beforeValue) && is_array($afterValue)) {
         return [
             'type' => "parent",
