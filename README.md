@@ -23,5 +23,3 @@ gendiff -h
 [![asciicast](https://asciinema.org/a/Pf5PQcwKeDjqj7hb5e4AO5YKW.svg)](https://asciinema.org/a/Pf5PQcwKeDjqj7hb5e4AO5YKW)
 [![asciicast](https://asciinema.org/a/7kaWuyrkCirsH21Iw888CcBsy.svg)](https://asciinema.org/a/7kaWuyrkCirsH21Iw888CcBsy)
 [![asciicast](https://asciinema.org/a/mWbK7t0RRFuRE2E2bo9ws8XcV.svg)](https://asciinema.org/a/mWbK7t0RRFuRE2E2bo9ws8XcV)
-
-

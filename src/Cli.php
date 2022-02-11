@@ -22,10 +22,9 @@ function start(): string
 
     $args = Docopt::handle($doc, ['version' => '1.0']);
 
-    $diff = genDiff(
+    return genDiff(
         $args['<firstFile>'],
         $args['<secondFile>'],
         $args['--format']
     );
-    return $diff;
 }

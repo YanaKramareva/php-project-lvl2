@@ -8,45 +8,44 @@ use function Differ\Differ\genDiff;
 
 class GenDiffTest extends TestCase
 {
-    public string $expectedPlainJson;
-    public string $expectedStylish;
-    public string $beforeNestedJson;
-    public string $afterNestedJson;
-    public string $beforeNestedYaml;
-    public string $afterNestedYaml;
-
-    public function setUp(): void
+    private function getFixturePath($fileName)
     {
-        parent::setUp();
-        $this->expectedPlainJson = file_get_contents(__DIR__ . "/fixtures/expectedPlain");
-        $this->expectedStylish = file_get_contents(__DIR__ . "/fixtures/expectedStylish");
-        $this->beforeNestedJson = __DIR__ . "/fixtures/beforeNested.json";
-        $this->afterNestedJson = __DIR__ . "/fixtures/afterNested.json";
-        $this->beforeNestedYaml = __DIR__ . "/fixtures/beforeNested.yaml";
-        $this->afterNestedYaml = __DIR__ . "/fixtures/afterNested.yaml";
+        return implode(DIRECTORY_SEPARATOR, [__DIR__, "fixtures", $fileName]);
     }
 
-    public function testGenDiffPlainJson()
+    /**
+     * @dataProvider additionProvider
+     */
+
+    public function testGenDiff($expected, $firstPathToFile, $secondPathToFile, $formatName = 'stylish')
     {
-        $actualJson = genDiff($this->beforeNestedJson, $this->afterNestedJson, "plain");
-        $this->assertEquals($this->expectedPlainJson, $actualJson);
+        $this->assertEquals($expected, genDiff($firstPathToFile, $secondPathToFile, $formatName));
     }
 
-    public function testGenDiffStylishJson()
+    public function additionProvider()
     {
-        $actualJson = genDiff($this->beforeNestedJson, $this->afterNestedJson, "stylish");
-        $this->assertEquals($this->expectedStylish, $actualJson);
-    }
+        $stylishFormatName = 'stylish';
+        $plainFormatName = 'plain';
+        $jsonFormatName = 'json';
 
-    public function testGenDiffStylishYaml()
-    {
-        $actualJson = genDiff($this->beforeNestedYaml, $this->afterNestedYaml, "stylish");
-        $this->assertEquals($this->expectedStylish, $actualJson);
-    }
+        $expectedStylish = file_get_contents($this->getFixturePath('expectedStylish'));
+        $expectedPlain = file_get_contents($this->getFixturePath('expectedPlain'));
+        $expectedJson = file_get_contents($this->getFixturePath('expected.json'));
 
-    public function testGenDiffPlainYaml()
-    {
-        $actualYaml = genDiff($this->beforeNestedYaml, $this->afterNestedYaml, "plain");
-        $this->assertEquals($this->expectedPlainJson, $actualYaml);
+        $beforeNestedJson = $this->getFixturePath('beforeNested.json');
+        $afterNestedJson = $this->getFixturePath('afterNested.json');
+        $beforeNestedYaml = $this->getFixturePath('beforeNested.yaml');
+        $afterNestedYaml = $this->getFixturePath('afterNested.yaml');
+
+        return [
+            [$expectedStylish, $beforeNestedJson, $afterNestedJson],
+            [$expectedStylish, $beforeNestedYaml, $afterNestedYaml],
+            [$expectedStylish, $beforeNestedJson, $afterNestedJson, $stylishFormatName],
+            [$expectedStylish, $beforeNestedYaml, $afterNestedYaml, $stylishFormatName],
+            [$expectedPlain, $beforeNestedJson, $afterNestedJson, $plainFormatName],
+            [$expectedPlain, $beforeNestedYaml, $afterNestedYaml, $plainFormatName],
+            [$expectedJson, $beforeNestedJson, $afterNestedJson, $jsonFormatName],
+            [$expectedJson, $beforeNestedYaml, $afterNestedYaml, $jsonFormatName],
+        ];
     }
 }

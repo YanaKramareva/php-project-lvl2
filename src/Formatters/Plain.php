@@ -2,12 +2,12 @@
 
 namespace Differ\Formatters\Plain;
 
-function formatPlain(array $ast): string
+function format(array $ast): string
 {
-    return format($ast, "");
+    return formatPlain($ast, "");
 }
 
-function format(array $ast, string $level): string
+function formatPlain(array $ast, string $level): string
 {
     $plain = array_map(fn ($item) => getBlock($item, $level), $ast);
     return implode("\n", array_filter($plain, fn($item) => $item !== null));
@@ -29,7 +29,7 @@ function getBlock(array $item, string $level): ?string
             return "Property '{$newLevel}' was updated." .
                 " From {$beforeValue} to {$afterValue}";
         case 'parent':
-            return format($item['children'], $newLevel) ;
+            return formatPlain($item['children'], $newLevel) ;
         case 'unchanged':
             return null;
         default:

@@ -6,11 +6,11 @@ function formatAstToString(array $ast, string $format): string
 {
     switch ($format) {
         case "stylish":
-            return Stylish\formatStylish($ast);
+            return Stylish\format($ast);
         case "plain":
-            return Plain\formatPlain($ast);
+            return Plain\format($ast);
         case "json":
-            return Json\formatJson($ast);
+            return Json\format($ast);
         default:
             throw new \Exception('Unknown format: ' . $format);
     }
