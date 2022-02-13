@@ -16,7 +16,6 @@ function formatStylish(mixed $ast, int $depth = 0): string
         $spaces = str_repeat(" ", $depth * SPACES);
         $key = $item['key'];
         $output = fn($spaces, $indent, $key)=>"{$spaces}{$indent}{$key}: ";
-
         switch ($item['type']) {
             case $item['type'] === 'parent':
                 $indent = INDENTS[$item['type']];
