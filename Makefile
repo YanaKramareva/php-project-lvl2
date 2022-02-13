@@ -13,5 +13,8 @@ test:
 lint-fix:
 	composer exec --verbose phpcbf -- --standard=PSR12 src tests
 
+phpstan:
+	composer exec phpstan -- analyse -l 5 src tests
+
 
 

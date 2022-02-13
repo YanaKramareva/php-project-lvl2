@@ -8,7 +8,7 @@ use function Differ\Differ\genDiff;
 
 class GenDiffTest extends TestCase
 {
-    private function getFixturePath($fileName)
+    private function getFixturePath(string $fileName): string
     {
         return implode(DIRECTORY_SEPARATOR, [__DIR__, "fixtures", $fileName]);
     }
@@ -17,9 +17,9 @@ class GenDiffTest extends TestCase
      * @dataProvider additionProvider
      */
 
-    public function testGenDiff($expected, $firstPathToFile, $secondPathToFile, $formatName = 'stylish')
+    public function testGenDiff($expected, $firstPathToFile, $secondPathToFile, $formatName = 'stylish'): void
     {
-        $this->assertEquals($expected, genDiff($firstPathToFile, $secondPathToFile, $formatName));
+        $this->assertStringEqualsFile($expected, genDiff($firstPathToFile, $secondPathToFile, $formatName));
     }
 
     public function additionProvider()
@@ -28,10 +28,9 @@ class GenDiffTest extends TestCase
         $plainFormatName = 'plain';
         $jsonFormatName = 'json';
 
-        $expectedStylish = file_get_contents($this->getFixturePath('expectedStylish'));
-        $expectedPlain = file_get_contents($this->getFixturePath('expectedPlain'));
-        $expectedJson = file_get_contents($this->getFixturePath('expected.json'));
-
+        $expectedStylish = $this->getFixturePath("expectedStylish");
+        $expectedPlain = $this->getFixturePath("expectedPlain");
+        $expectedJson = $this->getFixturePath("expected.json");
         $beforeNestedJson = $this->getFixturePath('beforeNested.json');
         $afterNestedJson = $this->getFixturePath('afterNested.json');
         $beforeNestedYaml = $this->getFixturePath('beforeNested.yaml');
