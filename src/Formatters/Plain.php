@@ -40,7 +40,7 @@ function formatValue(mixed $value): string
         return 'null';
     }
     if (is_bool($value)) {
-        return trim(var_export($value, true), "'");
+        return $value ? 'true' : 'false';
     }
     if (is_array($value) || is_object($value)) {
         return '[complex value]';

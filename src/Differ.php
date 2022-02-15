@@ -18,10 +18,14 @@ function genDiff(string $beforeFilePath, string $afterFilePath, string $format =
 {
     $beforeContent = fileGetContent($beforeFilePath);
     $afterContent = fileGetContent($afterFilePath);
+
     $beforeType = pathinfo($beforeFilePath, PATHINFO_EXTENSION);
     $afterType = pathinfo($afterFilePath, PATHINFO_EXTENSION);
+
     $beforeParsedContent = parse($beforeContent, $beforeType);
     $afterParsedContent = parse($afterContent, $afterType);
+
     $ast = makeAst($beforeParsedContent, $afterParsedContent);
+
     return formatAstToString($ast, $format);
 }

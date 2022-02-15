@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Stylish;
 
-const SPACES = 4;
+const SPACES_COUNT = 4;
 const INDENTS = ['unchanged' => '    ', 'added' => '  + ', 'deleted' => '  - ', 'parent' => '    '];
 
 function format(mixed $ast): string
@@ -13,7 +13,7 @@ function format(mixed $ast): string
 function formatStylish(mixed $ast, int $depth = 0): string
 {
     $stylish = array_map(function ($item) use ($depth) {
-        $spaces = str_repeat(" ", $depth * SPACES);
+        $spaces = str_repeat(" ", $depth * SPACES_COUNT);
         $key = $item['key'];
         $output = fn($spaces, $indent, $key)=>"{$spaces}{$indent}{$key}: ";
         switch ($item['type']) {
@@ -45,7 +45,7 @@ function formatStylish(mixed $ast, int $depth = 0): string
 function formatValue(mixed $value, int $depth = 1): string
 {
     if (is_array($value)) {
-        $spaces = str_repeat(" ", $depth * SPACES);
+        $spaces = str_repeat(" ", $depth * SPACES_COUNT);
         $keys = array_keys($value);
         $result = array_map(function ($key) use ($depth, $value, $spaces) {
             $formatValue = formatValue($value[$key], $depth + 1);
