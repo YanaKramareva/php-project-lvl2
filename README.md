@@ -47,10 +47,10 @@ PHP >=8.0, Composer
 
 ### Commands: ###
 
-$ make install 
-$ make lint 
-$ make test
-$ make coverage
+#### $ make install #### 
+#### $ make lint ####
+#### $ make test ####
+#### $ make coverage ####
 
 **Asciinema:** 
 
