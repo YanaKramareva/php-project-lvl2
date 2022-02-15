@@ -26,13 +26,13 @@ Start script:
 3. php gendiff --format plain filepath1.yaml filepath2.yaml
 4. php gendiff --format json filepath1.json filepath2.json
 
-###Library: ###
+### Library: ###
 
 use function Differ\Differ\genDiff;
 
 genDiff($pathToFile1, $pathTofile2, $format = 'stylish');
 
-###Installation: ###
+### Installation: ###
 
 To install globally run the command:
 
