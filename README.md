@@ -36,11 +36,11 @@ genDiff($pathToFile1, $pathTofile2, $format = 'stylish');
 
 To install globally run the command:
 
-$ composer global require yanakramareva/php-project-lvl2
+$ composer global require YanaKramareva/php-project-lvl2
 
 To install into the project as a library run the command:
 
-$ composer require yanakramareva/php-project-lvl2
+$ composer require YanaKramareva/php-project-lvl2
 
 For development require: 
 PHP >=8.0, Composer 
